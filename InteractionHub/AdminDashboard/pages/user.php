@@ -16,11 +16,12 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <!-- <i class='bx bx-code-alt'></i> -->
-            <img src="../images/ih-logo-design_695270-414-Photoroom.png" alt="InteractionHub" width="30px" style="margin-right: 5px;margin-left: 24px;">
+            <img src="../images/ih-logo-design_695270-414-Photoroom.png" alt="InteractionHub" width="30px"
+                style="margin-right: 5px;margin-left: 24px;">
             <div class="logo-name"><span>Interac</span>Hub</div>
         </a>
         <ul class="side-menu">
-            <li><a href="../index.html"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li class="active"><a href=""><i class='bx bx-group'></i>Users</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
@@ -29,7 +30,7 @@
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#" class="logout">
+                <a href="../../logout.php" class="logout">
                     <i class='bx bx-log-out-circle'></i>
                     Logout
                 </a>
@@ -79,7 +80,27 @@
                     <span>Download CSV</span>
                 </a>
             </div>
+            <div class="api">
+                <h2>User Data</h2>
+                <button onclick="getUserData()" class="button">Fetch User Data</button>
 
+                <!-- Template untuk User Data -->
+                <template id="user-template" class="api">
+                    <div class="user-data">
+                        <p><strong>Name:</strong> <span class="name"></span></p>
+                        <p><strong>Username:</strong> <span class="username"></span></p>
+                        <p><strong>Email:</strong> <span class="email"></span></p>
+                        <p><strong>Phone:</strong> <span class="phone"></span></p>
+                        <p><strong>Website:</strong> <span class="website"></span></p>
+                        <p><strong>Company:</strong> <span class="company"></span></p>
+                    </div>
+                </template>
+
+                <!-- Container untuk User Data -->
+                <div id="userDataContainer">
+                    <!-- User data akan disalin dari template dan ditampilkan di sini -->
+                </div>
+            </div>
         </main>
 
     </div>

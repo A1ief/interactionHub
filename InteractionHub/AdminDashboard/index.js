@@ -33,6 +33,7 @@ searchBtn.addEventListener('click', function (e) {
     }
 });
 
+//responsive
 window.addEventListener('resize', () => {
     if (window.innerWidth < 768) {
         sideBar.classList.add('close');
@@ -45,6 +46,7 @@ window.addEventListener('resize', () => {
     }
 });
 
+//tema gelap terang
 const toggler = document.getElementById('theme-toggle');
 
 toggler.addEventListener('change', function () {
@@ -55,27 +57,54 @@ toggler.addEventListener('change', function () {
     }
 });
 
-// Get the modal
-var modal = document.getElementById("myModal");
+//snackbar
+let modal = document.getElementById("myModal");
+let span = document.getElementsByClassName("close")[0];
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// Function to open modal with title and value
 function openModal(title, value) {
     document.getElementById("modalTitle").textContent = title;
     document.getElementById("modalValue").textContent = value;
     modal.style.display = "block";
+    
+    setTimeout(function() {
+        modal.style.display = "none";
+    }, 5000);
 }
 
-// When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
         modal.style.display = "none";
+    }
+}
+
+async function getUserData() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
+        const userData = await response.json();
+
+        // Ambil template dan buat instance baru
+        const template = document.getElementById('user-template');
+        const userDataContainer = document.getElementById('userDataContainer');
+        userDataContainer.innerHTML = ""; // Kosongkan kontainer
+
+        // Buat salinan node template
+        const userInstance = document.importNode(template.content, true);
+
+        // Masukkan data ke dalam elemen template
+        userInstance.querySelector(".name").textContent = userData.name;
+        userInstance.querySelector(".username").textContent = userData.username;
+        userInstance.querySelector(".email").textContent = userData.email;
+        userInstance.querySelector(".phone").textContent = userData.phone;
+        userInstance.querySelector(".website").textContent = userData.website;
+        userInstance.querySelector(".company").textContent = userData.company.name;
+
+        // Tambahkan instance ke kontainer
+        userDataContainer.appendChild(userInstance);
+    } catch (error) {
+        console.error("Terjadi kesalahan:", error);
     }
 }

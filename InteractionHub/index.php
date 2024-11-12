@@ -33,11 +33,10 @@
 </head>
 
 <body>
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
-
+      <a href="AdminDashboard/index.php">login</a>
       <h1 class="logo me-auto me-lg-0"><a href="index.html">Interaction<span>Hub</span></a></h1>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
@@ -52,8 +51,8 @@
       </nav><!-- .navbar -->
 
       <div class="buttons-container ms-auto">
-        <a href="login.html" class="get-started scrollto">Login</a>
-        <a href="register.html" class="get-started scrollto">Register</a>
+        <a href="login.php" class="get-started scrollto">Login</a>
+        <a href="register.php" class="get-started scrollto">Register</a>
       </div>
 
     </div>

@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// if (isset($_SESSION['email'])) {
+//     header("Location: login.php");
+//     exit();
+// }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +30,7 @@
         </a>
         <ul class="side-menu">
             <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li><a href="pages/user.html"><i class='bx bx-group'></i>Users</a></li>
+            <li><a href="pages/user.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
@@ -29,7 +38,7 @@
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#" class="logout">
+                <a href="../logout.php" class="logout">
                     <i class='bx bx-log-out-circle'></i>
                     Logout
                 </a>
@@ -111,7 +120,7 @@
                     </span>
                 </li>
             </ul>
-            
+
             <!-- Modal Structure -->
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -119,7 +128,7 @@
                     <h3 id="modalTitle"></h3>
                     <p id="modalValue"></p>
                 </div>
-            </div>            
+            </div>
             <!-- End of Insights -->
 
             <div class="bottom-data">
