@@ -1,0 +1,104 @@
+table {
+       width: 100%;
+       border-collapse: collapse;
+       margin-top: 20px;
+       text-align: center;
+}
+
+table th,
+table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+table th {
+       background-color: #f4f4f4;
+}
+
+.action-buttons {
+       display: flex;
+       gap: 10px;
+       justify-content: center;
+}
+
+.action-buttons button {
+       padding: 5px 10px;
+       border: none;
+       border-radius: 5px;
+       cursor: pointer;
+       font-size: 14px;
+}
+
+.btn-edit {
+       background-color: #daa300;
+       color: white;
+}
+
+.btn-edit:hover {
+       background-color: #b98b00;
+}
+
+.btn-delete {
+       background-color: #dc3545;
+       color: white;
+}
+
+.btn-delete:hover {
+       background-color: #c82333;
+}
+
+.form {
+       margin: 20px auto;
+       padding: 20px;
+       background-color: #ffffff;
+       border-radius: 10px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       font-family: Arial, sans-serif;
+}
+
+.form label {
+       display: block;
+       font-size: 16px;
+       font-weight: 600;
+       color: #333333;
+       margin-bottom: 8px;
+}
+
+.form input {
+       width: 100%;
+       padding: 10px;
+       margin-bottom: 15px;
+       border: 1px solid #cccccc;
+       border-radius: 5px;
+       font-size: 14px;
+       color: #333333;
+       box-sizing: border-box;
+       transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form input:focus {
+       border-color: #daa300;
+       box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+       outline: none;
+}
+
+.form button {
+       width: 100%;
+       padding: 8px;
+       background-color: #daa300;
+       color: #ffffff;
+       border: none;
+       border-radius: 5px;
+       font-size: 16px;
+       font-weight: 600;
+       cursor: pointer;
+       transition: background-color 0.3s ease;
+}
+
+.form button:hover {
+       background-color: #b98b00;
+}
+
+.form button:active {
+       background-color: #daa300;
+}

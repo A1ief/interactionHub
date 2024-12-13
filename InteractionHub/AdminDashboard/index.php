@@ -1,10 +1,71 @@
 <?php
 session_start();
+include '../db.php';
 
-// if (isset($_SESSION['email'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+require_once('../dompdf/autoload.inc.php');
+
+use Dompdf\Dompdf;
+
+try {
+    // Ambil data pelanggan
+    $sqlCustomers = "SELECT * FROM customers";
+    $stmtCustomers = $pdo->prepare($sqlCustomers);
+    $stmtCustomers->execute();
+    $customers = $stmtCustomers->fetchAll(PDO::FETCH_ASSOC);
+
+    // Ambil data agen
+    $sqlAgents = "SELECT * FROM agent";
+    $stmtAgents = $pdo->prepare($sqlAgents);
+    $stmtAgents->execute();
+    $agents = $stmtAgents->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "ERROR: " . $e->getMessage();
+}
+
+if (isset($_GET['download_pdf'])) {
+    $dompdf = new Dompdf();
+
+    // HTML untuk PDF
+    $html = "<h1>Data Pelanggan</h1>
+            <table border='1' cellpadding='5'>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>";
+    foreach ($customers as $customer) {
+        $html .= "<tr>
+                    <td>" . htmlspecialchars($customer['name']) . "</td>
+                    <td>" . htmlspecialchars($customer['email']) . "</td>
+                </tr>";
+    }
+    $html .= "</tbody></table>";
+
+    $html .= "<h1>Data Agen</h1>
+            <table border='1' cellpadding='5'>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>";
+    foreach ($agents as $agent) {
+        $html .= "<tr>
+                    <td>" . htmlspecialchars($agent['name']) . "</td>
+                    <td>" . htmlspecialchars($agent['email']) . "</td>
+                </tr>";
+    }
+    $html .= "</tbody></table>";
+
+    // Mengonversi HTML menjadi PDF
+    $dompdf->loadHtml($html);
+    $dompdf->render();
+    $dompdf->stream("data_pelanggan_dan_agen.pdf", array("Attachment" => 0)); // 0 untuk menampilkan di browser
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +75,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
-    <link href="images/ih-logo-design_695270-414-Photoroom.png" rel="icon">
+    <link rel="stylesheet" href="assetsAdmin/css/style.css">
+    <link href="assetsAdmin/images/ih-logo-design_695270-414-Photoroom.png" rel="icon">
     <title>Admin Dashboard</title>
 </head>
 
@@ -25,14 +86,14 @@ session_start();
     <div class="sidebar">
         <a href="#" class="logo">
             <!-- <i class='bx bx-code-alt'></i> -->
-            <img src="images/ih-logo-design_695270-414-Photoroom.png" alt="InteractionHub" width="30px" style="margin-right: 5px;margin-left: 24px;">
+            <img src="assetsAdmin/images/ih-logo-design_695270-414-Photoroom.png" alt="InteractionHub" width="30px" style="margin-right: 5px;margin-left: 24px;">
             <div class="logo-name"><span>Interac</span>Hub</div>
         </a>
         <ul class="side-menu">
             <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li><a href="pages/user.php"><i class='bx bx-group'></i>Users</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="pages/customer/customer.php"><i class='bx bxs-user-detail'></i>Customer</a></li>
+            <li><a href="pages/agent/agent.php"><i class='bx bx-analyse'></i>Agent</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -83,9 +144,9 @@ session_start();
                         <li><a href="#" class="active">Shop</a></li>
                     </ul>
                 </div>
-                <a href="#" class="report">
+                <a href="?download_pdf=true" class="report">
                     <i class='bx bx-cloud-download'></i>
-                    <span>Download CSV</span>
+                    <span>Download PDF</span>
                 </a>
             </div>
 
@@ -135,43 +196,62 @@ session_start();
                 <div class="orders">
                     <div class="header">
                         <i class='bx bx-receipt'></i>
-                        <h3>Recent Orders</h3>
+                        <h3>Customers</h3>
                         <i class='bx bx-filter'></i>
                         <i class='bx bx-search'></i>
                     </div>
-                    <table>
+                    <table style="text-align: center;">
                         <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
+                            <tr style="justify-content: center;text-align:center;">
+                                <th colspan="2" style="text-align: center;padding-left:55px">User</th>
+                                <!-- <th>Status</th> -->
+                                <th style="text-align: center;">email</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status completed">Completed</span></td>
+                            <?php if (!empty($customers)) : ?>
+                                <?php foreach ($customers as $customer) : ?>
+                                    <tr>
+                                        <td style="margin-right: 10px;"><img src="images/profile-1.jpg"></td>
+                                        <td><?= htmlspecialchars($customer['name']) ?></td>
+                                        <td><?= htmlspecialchars($customer['email']) ?></td>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;">No customers found</td>
+                                    </tr>
+                                <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="orders">
+                    <div class="header">
+                        <i class='bx bx-receipt'></i>
+                        <h3>Agent</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i>
+                    </div>
+                    <table style="text-align: center;">
+                        <thead>
+                            <tr style="justify-content: center;text-align:center;">
+                                <th colspan="2" style="text-align: center;padding-left:55px">User</th>
+                                <!-- <th>Status</th> -->
+                                <th style="text-align: center;">email</th>
                             </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile-1.jpg">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>14-08-2023</td>
-                                <td><span class="status process">Processing</span></td>
-                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($agents)) : ?>
+                                <?php foreach ($agents as $agent) : ?>
+                                    <tr>
+                                        <td style="margin-right: 10px;"><img src="images/profile-1.jpg"></td>
+                                        <td><?= htmlspecialchars($agent['name']) ?></td>
+                                        <td><?= htmlspecialchars($agent['email']) ?></td>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;">No agents found</td>
+                                    </tr>
+                                <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -208,16 +288,12 @@ session_start();
                         </li>
                     </ul>
                 </div>
-
                 <!-- End of Reminders-->
-
+            
             </div>
-
         </main>
-
     </div>
-
-    <script src="index.js"></script>
+    <script src="assetsAdmin/js/index.js"></script>
 </body>
 
 </html>

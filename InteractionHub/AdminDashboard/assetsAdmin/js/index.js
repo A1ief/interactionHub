@@ -108,3 +108,22 @@ async function getUserData() {
         console.error("Terjadi kesalahan:", error);
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('submitButton').addEventListener('click', function () {
+        Swal.fire({
+            title: 'apakah anda yakin?',
+            text: "apakah anda yakin dengan data ini?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, submit it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika user konfirmasi, submit form
+                document.getElementById('formInput').submit();
+            }
+        });
+    });
+});

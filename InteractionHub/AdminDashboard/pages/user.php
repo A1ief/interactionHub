@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assetsAdmin/css/style.css">
     <link href="images/ih-logo-design_695270-414-Photoroom.png" rel="icon">
     <title>Admin Dashboard</title>
 </head>
@@ -16,15 +16,15 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <!-- <i class='bx bx-code-alt'></i> -->
-            <img src="../images/ih-logo-design_695270-414-Photoroom.png" alt="InteractionHub" width="30px"
+            <img src="../assetsAdmin/images/ih-logo-design_695270-414-Photoroom.png" alt="InteractionHub" width="30px"
                 style="margin-right: 5px;margin-left: 24px;">
             <div class="logo-name"><span>Interac</span>Hub</div>
         </a>
         <ul class="side-menu">
             <li><a href="../index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li class="active"><a href=""><i class='bx bx-group'></i>Users</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="customer/customer.php"><i class='bx bxs-user-detail'></i>Customer</a></li>
+            <li><a href="agent/agent.php"><i class='bx bx-analyse'></i>Agent</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>

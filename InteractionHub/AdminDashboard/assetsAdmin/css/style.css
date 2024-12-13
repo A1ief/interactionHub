@@ -389,9 +389,65 @@ body{
     justify-content: center;
 }
 
- .api{
+/* Form Container */
+.formInput {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
     border-radius: 10px;
-    /* display: absolu; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.formInput label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.formInput input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333333;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formInput input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.formInput button {
+    width: 100%;
+    padding: 8px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formInput button:hover {
+    background-color: #0056b3;
+}
+
+.formInput button:active {
+    background-color: #003f7f;
+}
+
+.api{
+    border-radius: 10px;
     background-color: #ffffff;
     padding-top: 20px;
     margin-top: 20px;
@@ -521,12 +577,13 @@ body{
 .content main .bottom-data .orders table{
     width: 100%;
     border-collapse: collapse;
+    text-align: center;
 }
 
 .content main .bottom-data .orders table th{
     padding-bottom: 12px;
     font-size: 13px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid var(--grey);
 }
 
@@ -546,6 +603,7 @@ body{
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
+    text-align: center;
 }
 
 .content main .bottom-data .orders table tbody tr{
